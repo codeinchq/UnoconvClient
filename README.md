@@ -13,22 +13,7 @@ $client->getFormats(); // lists supported formats (calls /unoconv/formats)
 $client->getFormats('graphics'); // list supported format for the graphics type (calls /unoconv/formats/graphics)
 $client->getHealth(); // returns the API server's uptime (calls /healthz)
 $client->getVersions(); // returns all versions of installed dependencies lookup (calls /unoconv/versions)
-
-// converts a document
-$responseStream = $client->convert($sourceStream, 'pdf');
-```
-
-### To convert a local file
-```php
-<?php
-use CodeInc\UnoconvClient\UnoconvClient;
-use GuzzleHttp\Psr7\LazyOpenStream;
-use function GuzzleHttp\Psr7\copy_to_string;
-
-$client = new UnoconvClient('http://localhost:3000');
-$localFilePath = '/path/to/my/document.docx';
-$localFileStream = new LazyOpenStream($localFilePath);
-$responseStream = $client->convert($localFileStream, 'pdf');
+$responseStream = $client->convert($sourceStream, 'pdf'); // converts a document
 ```
 
 ### To convert a local file and display the result
@@ -36,15 +21,33 @@ $responseStream = $client->convert($localFileStream, 'pdf');
 <?php
 use CodeInc\UnoconvClient\UnoconvClient;
 use GuzzleHttp\Psr7\LazyOpenStream;
-use function GuzzleHttp\Psr7\copy_to_string;
 
 $client = new UnoconvClient('http://localhost:3000');
+
 $localFilePath = '/path/to/my/document.docx';
-$localFileStream = new LazyOpenStream($localFilePath);
+$localFileStream = new LazyOpenStream($localFilePath, 'r');
 $responseStream = $client->convert($localFileStream, 'pdf');
 
 header('Content-Type: application/pdf');
 echo $responseStream;
+```
+
+### To convert a local file to another local file
+```php
+<?php
+use CodeInc\UnoconvClient\UnoconvClient;
+use GuzzleHttp\Psr7\LazyOpenStream;
+use function GuzzleHttp\Psr7\copy_to_stream;
+
+$client = new UnoconvClient('http://localhost:3000');
+
+$localFilePath = '/path/to/my/document.docx';
+$localFileStream = new LazyOpenStream($localFilePath, 'r');
+$responseStream = $client->convert($localFileStream, 'pdf');
+
+$pdfFilePath = '/path/to/my/document.pdf';
+$pdfFileStream = new LazyOpenStream($pdfFilePath, 'w');
+copy_to_stream($responseStream, $pdfFileStream);
 ```
 
 ## Installation
