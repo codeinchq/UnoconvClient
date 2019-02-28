@@ -9,11 +9,21 @@ This PHP 7 library is a (very) simple client for [zrrrzzt/tfk-api-unoconv](https
 use CodeInc\UnoconvClient\UnoconvClient;
 
 $client = new UnoconvClient('http://localhost:3000');
-$client->getFormats(); // lists supported formats (calls /unoconv/formats)
-$client->getFormats('graphics'); // list supported format for the graphics type (calls /unoconv/formats/graphics)
-$client->getHealth(); // returns the API server's uptime (calls /healthz)
-$client->getVersions(); // returns all versions of installed dependencies lookup (calls /unoconv/versions)
-$responseStream = $client->convert($sourceStream, 'pdf'); // converts a document
+
+// lists supported formats (calls /unoconv/formats)
+$client->getFormats(); 
+
+// list supported format for the graphics type (calls /unoconv/formats/graphics)
+$client->getFormats('graphics');
+
+// returns the API server's uptime (calls /healthz)
+$client->getHealth(); 
+
+// returns all versions of installed dependencies lookup (calls /unoconv/versions)
+$client->getVersions();
+
+// converts a document
+$responseStream = $client->convert($sourceStream, 'pdf'); 
 ```
 
 ### To convert a local file and display the result
