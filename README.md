@@ -1,6 +1,6 @@
 # Unoconv web service client
 
-This PHP 7 library is a (very) simple client for [zrrrzzt/tfk-api-unoconv](https://github.com/zrrrzzt/tfk-api-unoconv) and in particular its [Docker implementation](https://github.com/zrrrzzt/docker-unoconv-webservice) (also available on [Docker hub](https://hub.docker.com/r/zrrrzzt/docker-unoconv-webservice)). The library is fully [PSR-7](https://www.php-fig.org/psr/psr-7/) compatible and uses [Guzzle](https://github.com/guzzle/guzzle) as its HTTP client.
+This PHP 7 library is a (very) simple client for [zrrrzzt/tfk-api-unoconv](https://github.com/zrrrzzt/tfk-api-unoconv) and in particular its [Docker implementation](https://github.com/zrrrzzt/docker-unoconv-webservice). The library is fully [PSR-7](https://www.php-fig.org/psr/psr-7/) compatible and uses [Guzzle](https://github.com/guzzle/guzzle) as its HTTP client.
 
 ## Usage
 
