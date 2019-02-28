@@ -22,6 +22,7 @@ declare(strict_types=1);
 namespace CodeInc\UnoconvClient;
 
 use GuzzleHttp\Client;
+use function GuzzleHttp\Psr7\copy_to_string;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 
@@ -71,12 +72,16 @@ class UnoconvClient
     /**
      * List all supported formats.
      *
+     * @param string|null $type
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getFormats():array
+    public function getFormats(?string $type = null):array
     {
-        return json_decode((string)$this->request('GET', '/unoconv/formats')->getBody(), true);
+        return json_decode(
+            copy_to_string($this->request('GET', '/unoconv/formats'.($type ? '/'.urlencode($type) : ''))->getBody()),
+            true
+        );
     }
 
     /**
@@ -87,7 +92,10 @@ class UnoconvClient
      */
     public function getHealth():array
     {
-        return json_decode((string)$this->request('GET', '/healthz')->getBody(), true);
+        return json_decode(
+            copy_to_string($this->request('GET', '/healthz')->getBody()),
+            true
+        );
     }
 
     /**
@@ -98,7 +106,10 @@ class UnoconvClient
      */
     public function getVersions():array
     {
-        return json_decode((string)$this->request('GET', '/unoconv/versions')->getBody(), true);
+        return json_decode(
+            copy_to_string($this->request('GET', '/unoconv/versions')->getBody()),
+            true
+        );
     }
 
     /**
